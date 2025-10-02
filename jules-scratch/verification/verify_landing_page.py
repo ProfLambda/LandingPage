@@ -16,6 +16,12 @@ async def main():
         # Wait for the page to load completely
         await page.wait_for_load_state('networkidle')
 
+        # Scroll to the bottom of the page to trigger all animations
+        await page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
+
+        # Wait a bit for animations to finish
+        await page.wait_for_timeout(2000)
+
         # Take a screenshot
         await page.screenshot(path='jules-scratch/verification/verification.png', full_page=True)
 
